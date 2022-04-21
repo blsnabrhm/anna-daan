@@ -7,13 +7,15 @@ const usersRoute=require("./routes/users");
 const postRoute=require("./routes/posts");
 const categoryRoute=require("./routes/categories");
 const multer=require("multer");
+const path = require("path");
 
 dotenv.config();
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "/images")));
 
 mongoose.connect(process.env.MONGO_URL,{
     useNewUrlParser:true,
-    useUnifiedTopology:true,
+    useUnifiedTopology:true
 })
 .then(console.log("Connected to mongo"))
 .catch((err)=>console.log(err));
@@ -36,6 +38,6 @@ app.use("/api/users",usersRoute);
 app.use("/api/posts",postRoute);
 app.use("/api/categories",categoryRoute);
 
-app.listen("5000",()=> {
+app.listen("3001",()=> {
     console.log("Backend is running");
 });
