@@ -9,10 +9,10 @@ export default function SinglePost() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
-  const PF = "http://localhost:3000/images/";
+  const PF = "http://localhost:3001/images/";
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const [description, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function SinglePost() {
       const res = await axios.get("/posts/" + path);
       setPost(res.data);
       setTitle(res.data.title);
-      setDesc(res.data.desc);
+      setDesc(res.data.description);
     };
     getPost();
   }, [path]);
@@ -39,7 +39,7 @@ export default function SinglePost() {
       await axios.put(`/posts/${post._id}`, {
         username: user.username,
         title,
-        desc,
+        description,
       });
       setUpdateMode(false)
     } catch (err) {}
@@ -90,11 +90,11 @@ export default function SinglePost() {
         {updateMode ? (
           <textarea
             className="singlePostDescInput"
-            value={desc}
+            value={description}
             onChange={(e) => setDesc(e.target.value)}
           />
         ) : (
-          <p className="singlePostDesc">{desc}</p>
+          <p className="singlePostDesc">{description}</p>
         )}
         {updateMode && (
           <button className="singlePostButton" onClick={handleUpdate}>
