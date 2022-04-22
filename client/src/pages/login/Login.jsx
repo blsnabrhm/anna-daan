@@ -18,12 +18,12 @@ export default function Login() {
         username: userRef.current.value,
         password: passwordRef.current.value,
       });
-      dispatch(LoginSuccess(res.data))
+      dispatch(LoginSuccess(res.data));
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });
     }
   };
-
+  console.log(user);
   return (
     <div className="login">
       <span className="loginTitle">Login</span>
